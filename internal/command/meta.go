@@ -28,7 +28,7 @@ func (s *stateLocker) Unlock() error {
 	defer cancel()
 
 	s.view.StateUnlockStart(s.lockID)
-	err := s.backend.Unlock(s.lockID)
+	err := s.backend.Unlock(ctx, s.lockID)
 	if err != nil {
 		s.view.StateUnlockFailed(s.lockID, err)
 		return fmt.Errorf("failed to release state lock: %w", err)
